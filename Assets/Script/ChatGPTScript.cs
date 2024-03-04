@@ -1,4 +1,5 @@
 using OpenAI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class ChatGPTScript : MonoBehaviour
     private OpenAIApi openai = new OpenAIApi();
 
     private List<ChatMessage> messages = new List<ChatMessage>();
-    private string prompt = "As a {0} in the rpg village, give a one sentence introduction to your self and give a list of what you should be selling as a {1}. put 3 items you are selling into a list and the format of item in list is <ItemName>: +<number> defense +<number> attack +<number> health. replace the ItemName with name and number with number.";
+    private string prompt = "As a {0} in the rpg village, give a one sentence introduction to your self and give a list of what you should be selling as a {1}. put 3 items you are selling into a list and the format of item in list is <ItemName>: +<number> defense +<number> attack +<number> health. replace the ItemName with name and number with number. use : before start listing";
 
     private void Start()
     {
@@ -46,6 +47,17 @@ public class ChatGPTScript : MonoBehaviour
             message.Content = message.Content.Trim();
             messages.Add(message);
             Debug.Log(message.Content);
+            string NPCIntroAndItems = message.Content;
+            int firstIndex = NPCIntroAndItems.IndexOf(":");
+            //string[] introAndItems = NPCIntroAndItems.Split(new string[] { ":" }, firstIndex);
+            string introduction = NPCIntroAndItems.Substring(0, firstIndex);
+            string itemList = NPCIntroAndItems.Substring(firstIndex + 1);
+            string[] items = itemList.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            Debug.Log(introduction);
+            foreach(string item in items)
+            {
+                Debug.Log(item);
+            }
         }
         else
         {
