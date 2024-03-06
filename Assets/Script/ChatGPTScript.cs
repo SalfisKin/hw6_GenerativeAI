@@ -10,6 +10,7 @@ public class ChatGPTScript : MonoBehaviour
     public GameObject dialogueBox;
     public GameObject imageObject;
     public PlayerScript playerScript;
+    public DialogueManager dialogueManager;
 
     private float height;
     private OpenAIApi openai = new OpenAIApi();
@@ -53,10 +54,11 @@ public class ChatGPTScript : MonoBehaviour
             int firstIndex = NPCIntroAndItems.IndexOf(":");
             //string[] introAndItems = NPCIntroAndItems.Split(new string[] { ":" }, firstIndex);
             string introduction = NPCIntroAndItems.Substring(0, firstIndex);
-           // GameObject dialogueObject = GameObject.Find("DialogueBox");
-            dialogueBox.SetActive(true);
-            imageObject.SetActive(true);
-          //  dialogueObject.transform.FindObjectsOfTypeAll("Image").GameObject.setActive(true);
+            // GameObject dialogueObject = GameObject.Find("DialogueBox");
+            // dialogueBox.SetActive(true);
+            //imageObject.SetActive(true);
+            //  dialogueObject.transform.FindObjectsOfTypeAll("Image").GameObject.setActive(true);
+            dialogueManager.displayMessage(introduction);
             string itemList = NPCIntroAndItems.Substring(firstIndex + 1);
             string[] items = itemList.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
             Debug.Log(introduction);
