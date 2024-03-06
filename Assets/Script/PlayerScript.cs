@@ -17,6 +17,9 @@ public class PlayerScript : MonoBehaviour
     private Animator player_Animator; // Reference to the Animator component
 
     private Rigidbody2D m_Rigidbody;
+
+    public bool isDialogueOpen = false;
+    public DialogueManager dialogueManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,10 +46,19 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                freeze = true;
-                chatGPTScript.SendReply(npcName);
-                player_Animator.SetBool("Is_running", false);
+                if(isDialogueOpen)
+                {
+                    dialogueManager.closeDialouge();
+                }
+                else
+                {
+                    freeze = true;
+                    chatGPTScript.SendReply(npcName);
+                    player_Animator.SetBool("Is_running", false);
+                }
             }
+            
+
         }
 
     }
