@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class ChatGPTScript : MonoBehaviour
 {
+    public GameObject dialogueBox;
+    public GameObject imageObject;
     public PlayerScript playerScript;
 
     private float height;
@@ -51,6 +53,10 @@ public class ChatGPTScript : MonoBehaviour
             int firstIndex = NPCIntroAndItems.IndexOf(":");
             //string[] introAndItems = NPCIntroAndItems.Split(new string[] { ":" }, firstIndex);
             string introduction = NPCIntroAndItems.Substring(0, firstIndex);
+           // GameObject dialogueObject = GameObject.Find("DialogueBox");
+            dialogueBox.SetActive(true);
+            imageObject.SetActive(true);
+          //  dialogueObject.transform.FindObjectsOfTypeAll("Image").GameObject.setActive(true);
             string itemList = NPCIntroAndItems.Substring(firstIndex + 1);
             string[] items = itemList.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
             Debug.Log(introduction);
@@ -61,7 +67,8 @@ public class ChatGPTScript : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No text was generated from this prompt.");
+            Debug.LogWarning("No text was generated from this prom" +
+				"pt.");
         }
 
         // placeholder
